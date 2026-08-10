@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hytale — Personalizar Avatar</title>
+
+    <!-- SEO Meta Tags -->
+    <meta
+      name="description"
+      content="Create, customize, and export 3D Hytale skins online. Explore the complete catalog of official Hytale cosmetics, hair styles, outfits, and color palettes with instant JSON export."
+    />
+    <meta
+      name="keywords"
+      content="Hytale skin creator, Hytale avatar customizer, Hytale 3D skin editor, Hytale skin generator, Hytale cosmetics, Hytale character creator, Hytale skin JSON"
+    />
+    <meta name="author" content="Hytale Skin Creator" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#1a1c23" />
+
+    <!-- Icons & Favicon -->
+    <link rel="icon" type="image/png" href="ui/icons/Haircut@2x.png" />
+    <link rel="apple-touch-icon" href="ui/icons/Haircut@2x.png" />
+
+    <!-- Open Graph / Facebook / Discord -->
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="Hytale Skin Creator & 3D Character Studio"
+    />
+    <meta
+      property="og:description"
+      content="Design and preview custom 3D Hytale skins online with official cosmetics, realistic color palettes, and quick JSON export."
+    />
+    <meta property="og:image" content="ui/background.jpg" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="pt_BR" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Hytale Skin Creator & 3D Character Studio"
+    />
+    <meta
+      name="twitter:description"
+      content="Create custom 3D Hytale skins with official cosmetics, realistic color palettes, and quick JSON export."
+    />
+    <meta name="twitter:image" content="ui/background.jpg" />
+
+    <!-- Structured Data (Schema.org JSON-LD) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Hytale Skin Creator",
+        "applicationCategory": "DesignApplication",
+        "operatingSystem": "All",
+        "description": "Interactive 3D avatar customizer and skin creator for Hytale. Design skins with official cosmetic assets, haircuts, outfits, and color palettes.",
+        "browserRequirements": "Requires JavaScript and WebGL enabled",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      }
+    </script>
+
+    <link rel="stylesheet" href="fitting_room.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  </head>
+  <body>
+    <!-- Viewport 3D Principal -->
+    <main id="viewport-container" aria-label="3D Avatar Viewport">
+      <canvas
+        id="canvas3d"
+        aria-label="Interactive 3D Hytale Character Preview"
+      ></canvas>
+    </main>
+
+    <!-- Sidebar de Customização -->
+    <aside id="sidebar" aria-label="Avatar Customization Panel">
+      <section class="panel">
+        <header class="panel-title">
+          <span class="panel-decoration top"></span>
+          <h1 id="panel-title">Hytale Skin Creator</h1>
+          <select
+            id="locale-select"
+            class="locale-select"
+            aria-label="Select Language"
+          ></select>
+        </header>
+
+        <div class="panel-content">
+          <!-- Trilha 1: grupos (Cabeça / Geral / Torso / Pernas / Capas) -->
+          <nav
+            class="group-rail"
+            id="group-rail"
+            aria-label="Category Groups"
+          ></nav>
+
+          <!-- Trilha 2: subcategorias do grupo ativo -->
+          <nav class="tab-bar" id="tab-bar" aria-label="Subcategories"></nav>
+
+          <section class="panel-right">
+            <div
+              class="breadcrumb"
+              id="breadcrumb"
+              aria-label="Current Category Breadcrumb"
+            ></div>
+
+            <label class="search-field" aria-label="Search Cosmetics">
+              <span class="search-icon" aria-hidden="true"></span>
+              <input
+                type="search"
+                id="search-input"
+                placeholder="Search..."
+                autocomplete="off"
+                aria-label="Search Cosmetics Input"
+              />
+            </label>
+
+            <div
+              class="item-grid"
+              id="item-grid"
+              role="region"
+              aria-label="Cosmetics Grid"
+            ></div>
+
+            <section class="color-section" aria-label="Color Selection">
+              <h2 class="section-label" id="color-label">Color</h2>
+              <div
+                class="color-bar"
+                id="color-bar"
+                role="radiogroup"
+                aria-label="Color Palette"
+              ></div>
+            </section>
+          </section>
+        </div>
+
+        <span class="panel-decoration bottom"></span>
+      </section>
+
+      <!-- Barra de Ações do Rodapé -->
+      <footer class="action-bar" aria-label="Avatar Actions">
+        <button
+          class="icon-btn"
+          id="cam-head-btn"
+          onclick="focusCamera('head')"
+          title="Focus Head"
+          aria-label="Focus Camera on Head"
+        >
+          <img src="ui/frames/ResetSkinIcon@2x.png" alt="Head Camera Focus" />
+        </button>
+        <button
+          class="icon-btn"
+          id="cam-body-btn"
+          onclick="focusCamera('body')"
+          title="Focus Body"
+          aria-label="Focus Camera on Body"
+        >
+          <img
+            src="ui/frames/ResetClothingIcon@2x.png"
+            alt="Body Camera Focus"
+          />
+        </button>
+        <button
+          class="icon-btn"
+          id="random-btn"
+          onclick="randomizeOutfit()"
+          title="Randomize Avatar"
+          aria-label="Randomize Avatar Options"
+        >
+          <img src="ui/frames/RandomizeIcon@2x.png" alt="Randomize Options" />
+        </button>
+        <span class="action-spacer"></span>
+        <button
+          class="btn btn-secondary"
+          id="reset-btn"
+          onclick="clearAllCosmetics()"
+          aria-label="Reset Avatar"
+        ></button>
+        <button
+          class="btn btn-secondary"
+          id="import-btn"
+          aria-label="Import Skin JSON"
+        ></button>
+        <button
+          class="btn btn-primary"
+          id="copy-btn"
+          onclick="copySkinJSON()"
+          aria-label="Copy Skin JSON"
+        ></button>
+      </footer>
+      
+      <!-- Legal / Fan Project Disclaimer -->
+      <p class="disclaimer-text" id="disclaimer-text"></p>
+    </aside>
+
+    <script src="catalog.js"></script>
+    <script src="i18n.js"></script>
+    <script src="fitting_room.js"></script>
+  </body>
+</html>
