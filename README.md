@@ -1,5 +1,8 @@
 # Hytale Skin Creator
 
+> [!IMPORTANT]
+> **Disclaimer:** This is an unofficial, fan-made project and is **not affiliated with, endorsed by, or sponsored by Hypixel Studios or Hytale**. All Hytale 3D models, textures, icons, fonts, and game assets remain the property of Hypixel Studios.
+
 A browser-based Hytale skin creator designed to let users create, customize, and preview characters directly in the browser.
 
 Renders character models directly from the `.blockymodel` format using Three.js and features **587 cosmetics** across 18 categories extracted from game files.
