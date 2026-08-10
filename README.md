@@ -60,6 +60,12 @@ Important nuances about the `.blockymodel` format discovered during implementati
 - **`HeadAccessoryType` handling**: `HalfCovering` head accessories (caps/hats) suppress bulky styled top hair layers and render generic fallback hair (`GenericShort`, `GenericMedium`, `GenericLong`) to prevent hat clipping. `FullyCovering` head accessories completely hide haircuts.
 - **UV rectangles touch each other** in the atlas, so UV boundaries must be inset by a fraction of a texel to prevent NEAREST filtering from sampling adjacent pixels.
 
+## License
+
+The source code of this repository is licensed under the [MIT License](LICENSE).
+
+All Hytale 3D models, textures, icons, fonts, and game assets remain the intellectual property of Hypixel Studios.
+
 ## Disclaimer & Credits
 
 3D models, textures, icons, and fonts are property of Hypixel Studios. This project is a fan-made tool and is not affiliated with or endorsed by Hypixel Studios or Hytale.
