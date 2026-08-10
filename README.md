@@ -64,4 +64,4 @@ Important nuances about the `.blockymodel` format discovered during implementati
 
 3D models, textures, icons, and fonts are property of Hypixel Studios. This project is a fan-made tool and is not affiliated with or endorsed by Hypixel Studios or Hytale.
 
-Format specifications were understood with reference to the official [Blockbench plugin](https://github.com/HypixelStudios/hytale-blockbench-plugin) (GPL) as reference — no plugin code was copied.
+Format specifications were understood with reference to the official [Blockbench plugin](https://github.com/JannisX11/hytale-blockbench-plugin) (GPL) as reference — no plugin code was copied.
